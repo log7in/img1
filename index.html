@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Fruits of the Nile. Жми старт!">
+    <link rel="shortcut icon" href="16x16.ico">
+    <link rel="shortcut icon" href="192x192.png" sizes="192x192">
+    <link rel="shortcut icon" href="32x32.png" sizes="32x32">
+    <title>Fruits of the Nile</title>
+    <link rel="stylesheet" href="css/style.min.css">
+
+
+</head>
+<body class="page">
+
+    <div class="page__container">
+        <a href="#" class="logo page__logo">
+            <img src="images/logo-casino-x.png" alt="CASINO-X" class="logo__img">
+        </a>
+
+        <div class="game">
+            <div class="game__stat-panel">
+                <div class="counter">
+                    <span class="counter__text">残りの試行</span>
+                    <span class="counter__value" id="try-counter">0</span>
+                </div>
+                <div class="counter">
+                    <span class="counter__text">あなたの賞金</span>
+                    <span class="counter__value" id="prize-counter">0</span>
+                </div>
+            </div>
+            <div class="game__body">
+                <div class="game__frame">
+                    <div class="game__frame-line game__frame-line_top">
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_grape"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_watermelon"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_orange"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_plum"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_cherry"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_lemon"></div>
+                        </div>
+                    </div>
+                    <div class="game__frame-line game__frame-line_right">
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_exit"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_cherry"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_plum"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_orange"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_exit"></div>
+                        </div>
+                    </div>
+                    <div class="game__frame-line  game__frame-line_bottom">
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_lemon"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_plum"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_seven"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_plum"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_cherry"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_grape"></div>
+                        </div>
+                    </div>
+                    <div class="game__frame-line  game__frame-line_left">
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_exit"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_orange"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_lemon"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_cherry"></div>
+                        </div>
+                        <div class="cell">
+                            <div class="cell__symbol cell__symbol_exit"></div>
+                        </div>
+                    </div>
+                </div>
+                <img src="images/text-start.png" alt="Жми старт!" class="game__cta">
+                <div class="game__slot">
+                    <div class="slot">
+                        <div class="slot__col">
+                            <div class="slot__cell">
+                                <div class="slot__symbol slot__symbol_5"></div>
+                            </div>
+                        </div>
+                        <div class="slot__col">
+                            <div class="slot__cell">
+                                <div class="slot__symbol slot__symbol_1"></div>
+                            </div>
+                        </div>
+                        <div class="slot__col">
+                            <div class="slot__cell">
+                                <div class="slot__symbol slot__symbol_2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="game__bonus-table">
+                    <div class="game__bonus-group">
+                        <div class="game__bonus-icon game__bonus-icon_seven"></div>
+                        <div class="game__bonus-text">
+                            200<br>回フリースピン
+                        </div>
+                    </div>
+                    <div class="game__bonus-group">
+                        <div class="game__bonus-icon game__bonus-icon_grape"></div>
+                        <div class="game__bonus-text">
+                            100<br>回フリースピン
+                        </div>
+                    </div>
+                    <div class="game__bonus-group">
+                        <div class="game__bonus-icon game__bonus-icon_lemon"></div>
+                        <div class="game__bonus-text">
+                            50<br>回フリースピン
+                        </div>
+                    </div>
+                    <div class="game__bonus-group">
+                        <div class="game__bonus-icon game__bonus-icon_watermelon"></div>
+                        <div class="game__bonus-text">
+                            200000<br>円
+                        </div>
+                    </div>
+                    <div class="game__bonus-group">
+                        <div class="game__bonus-icon game__bonus-icon_orange"></div>
+                        <div class="game__bonus-text">
+                            100000<br>円
+                        </div>
+                    </div>
+                    <div class="game__bonus-group">
+                        <div class="game__bonus-icon game__bonus-icon_plum"></div>
+                        <div class="game__bonus-text">
+                            50000<br>円
+                    </div>
+                </div>
+
+                <div class="game__button-holder">
+                    <button class="button play-trigger" disabled="">スタート！</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="fewmodal" id="modal-content">
+        <div class="fewmodal__body" id="level-1">
+            <div class="fewmodal__content">
+                <div class="popup">
+                    <div class="popup__head">
+                        <h2 class="popup__title">おめでとうございます！</h2>
+                    </div>
+                    <p class="popup__text">あなたが勝った：</p>
+                    <div class="popup__section">
+                        <strong class="popup__highlight">200&nbsp;000&nbsp;円</strong><br>
+                        初回入金時
+                    </div>
+                    <p class="popup__text">まだ涼しい</p>
+                    <div class="popup__button-holder">
+                        <button class="button play-trigger" disabled="">スタート！</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fewmodal__body" id="level-2">
+            <div class="fewmodal__content">
+                <div class="popup">
+                    <div class="popup__head">
+                        <h2 class="popup__title">おめでとうございます！</h2>
+                    </div>
+                    <p class="popup__text">あなたが勝った：</p>
+                    <div class="popup__section">
+                        <strong class="popup__highlight">200</strong><br>
+                        フリースピン<br>
+                        +<br>
+                        <strong class="popup__highlight">200&nbsp;000&nbsp;円</strong><br>
+                        初回入金時
+                    </div>
+                    <!-- <p class="popup__text">Минимальный депозит 50грн. Для получения бонуса 1000грн.</p> -->
+                    <div class="popup__button-holder">
+                        <a href="https://google.com" class="button">登録</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/main.min.js"></script>
+
+</body>
+</html>
