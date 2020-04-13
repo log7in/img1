@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Крути колесо! Получай подарки!">
+    <meta property="og:image" content="img/fb_wheel_2.jpg">
+    <link rel="shortcut icon" href="img/16x16.png">
+    <title>Крути колесо! Получай подарки на Вулкане!</title>
+    <link rel="stylesheet" href="css/style.css">
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '111');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=111&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+</head>
+<body class="page" data-audio-path="img">
+
+
+<div class="page__wrap">
+    <a href="{offer}" onclick="fbq('track', 'Lead')" class="logo page__logo">
+        <img src="img/logo_cv.png" class="logo__img">
+    </a>
+
+    <div class="game-layout">
+        <div class="game-layout__body">
+            <div class="wheel">
+                <div class="wheel__spinner-holder">
+                    <img src="img/wheel-spinner.png" class="wheel__spinner wheel__spinner_animated">
+                    <div class="wheel__mask"></div>
+                    <div class="wheel__button-holder wheel__button-holder_blinking">
+                        <button class="circle-button wheel__button spin-trigger">Крутить</button>
+                    </div>
+                </div>
+                <div class="wheel__win-frame"></div>
+            </div>
+        </div>
+        <div class="game-layout__panel">
+            <div class="counter">
+                <span class="counter__text">Осталось попыток:</span>
+                <span class="counter__value">2</span>
+            </div>
+            <div class="achievements">
+
+            </div>
+        </div>
+    </div>
+    <div class="page__footer">
+        <div class="payments"></div>
+    </div>
+</div>
+
+<div class="game-mask">
+    <div class="game-mask__column"></div>
+    <div class="game-mask__column game-mask__column_fixed">
+        <div class="game-mask__top"></div>
+        <div class="game-mask__main"></div>
+        <div class="game-mask__bot"></div>
+    </div>
+    <div class="game-mask__column"></div>
+    <img src="img/text-spin-get-gifts.png" class="game-mask__text">
+</div>
+
+<div class="sound-control page__mute"></div>
+
+<div class="achievements achievements_hidden">
+    <div class="achievements__item achievements__item_empty">
+        У вас пока нет выигранных призов
+    </div>
+    <div class="achievements__item">
+        <img src="img/bonus-silver.png" class="achievements__img">
+    </div>
+    <div class="achievements__item">
+        <img src="img/bonus-gold.png" class="achievements__img">
+    </div>
+</div>
+
+<div class="fewmodal" id="modal-content">
+    <div class="fewmodal__body" id="level-1">
+        <div class="fewmodal__content">
+            <div class="popup">
+                <h2 class="popup__title popup__accent">Поздравляем!</h2>
+                <p class="popup__win first-bonus">
+                    <span class="popup__you-win">Вы выиграли <span class="popup__accent popup__digit">100%</span></span><br>
+                    бонус на первый депозит
+                </p>
+                <button class="button spin-trigger">Крутить еще</button>
+            </div>
+        </div>
+    </div>
+    <div class="fewmodal__body" id="level-2">
+        <div class="fewmodal__content">
+            <div class="popup">
+                <h2 class="popup__title popup__accent accent_white">Поздравляем!</h2>
+                <p class="popup__win second-bonus">
+                    <span class="popup__you-win popup-white-text">Вы выиграли:</span><br>
+                    <span class="popup__accent popup__digit_xl">20 фриспинов</span><br>
+                    <span class="popup-white-text">и бонус на первый депозит</span> <span class="popup__accent popup__digit">100%</span>
+                </p>
+                <div class="achievements achievements_size_m achievements_inline popup__achievements">
+                    <div class="achievements__item">
+                        <img src="img/bonus-silver.png" class="achievements__img">
+                    </div>
+                    <div class="achievements__item">
+                        <img src="img/bonus-gold.png" class="achievements__img">
+                    </div>
+                </div>
+                <a class="button" href="{offer}" onclick="fbq('track', 'Lead')">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/main.min.js?2"></script>
+
+</body>
+</html>
