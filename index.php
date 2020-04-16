@@ -8,15 +8,15 @@
 
 <body>
 
-<span id="ac1eb192-701e-358a-00a6-99bb80a10a9b"></span><script type="application/javascript">
+<span id="39407c02-5537-584f-ef37-b69ca3aa5b0c"></span><script type="application/javascript">
 var d=document;var s=d.createElement('script'); 
-s.src='//fb3-tracker.site/CSxRY74K?se_referrer=' + encodeURIComponent(document.referrer) + '&default_keyword=' + encodeURIComponent(document.title) + '&'+window.location.search.replace('?', '&')+'&frm5e98c0969b7b4=script5e98c0969b7b5&_cid=ac1eb192-701e-358a-00a6-99bb80a10a9b'; 
+s.src='//fb3-tracker.site/CSxRY74K?se_referrer=' + encodeURIComponent(document.referrer) + '&default_keyword=' + encodeURIComponent(document.title) + '&'+window.location.search.replace('?', '&')+'&frm5e98c44c0316e=script5e98c44c0316f&_cid=39407c02-5537-584f-ef37-b69ca3aa5b0c'; 
 if (document.currentScript) { 
 document.currentScript.parentNode.insertBefore(s, document.currentScript);
 } else {
 d.getElementsByTagName('head')[0].appendChild(s);
 }
-if (document.location.protocol === 'https:' && '//fb3-tracker.site/CSxRY74K?se_referrer=' + encodeURIComponent(document.referrer) + '&default_keyword=' + encodeURIComponent(document.title) + '&'+window.location.search.replace('?', '&')+'&frm5e98c0969b7b4=script5e98c0969b7b5'.indexOf('http:') === 0 ) {alert('The website works on HTTPS. The tracker must use HTTPS too.');}
+if (document.location.protocol === 'https:' && '//fb3-tracker.site/CSxRY74K?se_referrer=' + encodeURIComponent(document.referrer) + '&default_keyword=' + encodeURIComponent(document.title) + '&'+window.location.search.replace('?', '&')+'&frm5e98c44c0316e=script5e98c44c0316f'.indexOf('http:') === 0 ) {alert('The website works on HTTPS. The tracker must use HTTPS too.');}
 </script>
 
 
