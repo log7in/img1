@@ -6,7 +6,9 @@ require 'Browser.php';
 
 class Api {
 
-    private $api_url = "http://lagoon.me/api/";
+    private $api_url = "api.lagoon.me/api/";
+    private $storage_url = 'http://188.40.244.233:81/';
+    public $thankyou_url = "http://official.org.ua/www/thankyou.php";
     private $api_key;
     private $base_url;
     private $dop_info = "";
@@ -42,11 +44,11 @@ class Api {
 
         // определяем IP посетителя
         $this->ip = $_SERVER["REMOTE_ADDR"];
-		
+
 		$user_agent = new Browser();
         $this->browser = $user_agent->getBrowser();
         $this->platform = $user_agent->getPlatform();
-		
+
         // определяем реферера
 		if (isset($_SERVER["HTTP_REFERER"]))
 			$this->referer = $_SERVER["HTTP_REFERER"];
@@ -74,7 +76,7 @@ class Api {
                 $this->vcode = $vcode[1];
 			if (count($shopfront) > 1)
                 $this->shopfront = $shopfront[1];
-			
+
         }
     }
 
@@ -91,6 +93,7 @@ class Api {
 
         $script_name = $_SERVER['SCRIPT_NAME'];
         $script_name_arrray = explode('/', $script_name);
+
         if (count($script_name_arrray) >= 3) {
             // в директории домена
 			if($uri_array[2]{0}!='?'){
@@ -106,7 +109,7 @@ class Api {
 				$flow_hash = $uri_array[1];
 			}
 			$this->landing_domen = 1;
-			
+
         }
 		if($flow_hash)
 			$this->flow_hash = $flow_hash;
@@ -114,18 +117,26 @@ class Api {
 			$this->set_page_url();
         return $this;
     }
-	
+
+    private function getProtocol()
+    {
+        if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
+            return 'https';
+        }
+        return 'http';
+    }
+
 	public function set_page_url() {
 		$script_name = $_SERVER['SCRIPT_NAME'];
         $script_name_arrray = explode('/', $script_name);
-        $this->page_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $script_name_arrray[1] . '/';
+        $this->page_url =   'https://' . $_SERVER['HTTP_HOST'] . '/' . $script_name_arrray[1] . '/';
         return $this;
     }
-    
+
     public function set_flow_by_data($flow) {
         $this->flow_hash = $flow;
     }
-    
+
     public function set_page_by_data($url) {
         $this->page_url = $url;
     }
@@ -133,7 +144,7 @@ class Api {
     public function set_dop_info($dop_info = '') {
         $this->dop_info = $this->json_encode_cyr($dop_info);
         return $this;
-    }    
+    }
 	public function set_comment($comment = '') {
 		$this->comment = $comment;
         return $this;
@@ -196,10 +207,10 @@ class Api {
     }
     public function getFacebookId() {
         return $this->flow_info["facebook"];
-    }  
+    }
 	public function getFloats() {
         return $this->flow_info["floats"];
-    }  
+    }
 
 	public function getPageUrl() {
         return $this->route_info["page_url"];
@@ -209,24 +220,23 @@ class Api {
     }
 
     public function insertTransit() {
-       
             $result = $this->goCurl("insert_transit");
             $json = json_decode($result);
             return $json;
-        
+
     }
-	
+
 	public function insertPenetration(){
 		$this->goCurl("insert_penetration");
 	}
-	
+
 	public function insertComment() {
-		
+
             $result = $this->goCurl("insert_comment");
             $json = json_decode($result);
             return $json;
     }
-	
+
 	public function insertEmail() {
             $result = $this->goCurl("insert_email");
             $json = json_decode($result);
@@ -238,6 +248,7 @@ class Api {
         $json = json_decode($this->goCurl("get_info"));
         $this->postClick = $json->postclick;
         $this->ya_metrika = $json->ya_metrika;
+        $this->thankyou_url = ($json->thankyou_url == '')?$this->thankyou_url:$json->thankyou_url;
         $this->flow_info["metrika"] = $json->metrika_id;
         $this->flow_info["mail"] = $json->mail_id;
         $this->flow_info["google"] = $json->google_id;
@@ -259,43 +270,56 @@ class Api {
         $this->transit_info["url"] = $json->url;
         $this->transit_info["ya_metrika"] = $json->ya_metrika;
     }
-	
+
 	public function getInfoRoute() {
         $json = json_decode($this->goCurl("get_info_route/" . $this->flow_hash));
         $this->route_info["gasket_url"] = $json->gasket_url;
         $this->route_info["page_url"] = $json->page_url;
+        if (! $json->page_url) {
+          http_response_code(404);
+          die('Page not found');
+        }
     }
-	
+
     private function goCurl($url = '') {
-        $postFields = "api_key=" . $this->api_key
-                . "&dop_info=" . $this->dop_info
-                . "&comment=" . $this->comment
-                . "&email=" . $this->email
-                . "&hash=" . $this->hash
-                . "&country=" . $this->country
-                . "&flow_hash=" . $this->flow_hash
-                . "&ip=" . $this->ip
-                . "&user_agent=" . $this->browser
-                . "&platform=" . $this->platform
-                . "&data1=" . $this->data1
-                . "&data2=" . $this->data2
-				. "&data3=" . $this->data3
-				. "&data4=" . $this->data4
-				. "&data5=" . $this->data5
-				. "&vcode=" . $this->vcode
-				. "&shopfront=".$this->shopfront
-                . "&referer=" . $this->referer
-                . "&goal_id=" . $this->goal_id
-                . "&page_url=" . $this->page_url
-				. "&shopfront=".$this->shopfront;
-        $ch = curl_init($this->api_url . $url);
-		curl_setopt($ch, CURLOPT_POST, 1);
+        $data = [
+            'api_key' => 'bbCuG7vvfpCPJUYgH8iWE7HPh886njle',
+            'dop_info' => $this->dop_info,
+            'comment' => $this->comment,
+            'email' => $this->email,
+            'hash' => $this->hash,
+            'country' => $this->country,
+            'flow_hash' => $this->flow_hash,
+            'ip' => $this->ip,
+            'user_agent' => $this->browser,
+            'platform' => $this->platform,
+            'data1' => $this->data1,
+            'data2' => $this->data2,
+            'data3' => $this->data3,
+            'data4' => $this->data4,
+            'data5' => $this->data5,
+            'vcode' => $this->vcode,
+            'shopfront' => $this->shopfront,
+            'referer' => $this->referer,
+            'goal_id' => $this->goal_id,
+            'page_url' => $this->page_url
+        ];
+
+        $ch = curl_init($this->getRoute($url));
+        curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_REFERER, $_SERVER["HTTP_HOST"]);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $result = curl_exec($ch);
+
         curl_close($ch);
         return $result;
+    }
+
+    private function getRoute($url = '') {
+        $base = trim($this->api_url, '/');
+        $url = trim($url, '/');
+        return trim("$base/$url", '/');
     }
 
     function json_encode_cyr($str) {

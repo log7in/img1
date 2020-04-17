@@ -1,12 +1,11 @@
-<?php if(($_POST['name']&&$_POST['phone'])||$_POST['com']||$_POST['email']):?>
+<?php if((($_POST['name'] || $_POST['fio'])&&$_POST['phone'])||$_POST['com']||$_POST['email']):?>
 <?php
-
-    require 'api.php';
+	require 'api.php';
 	if(isset($_POST['phone']))
 		$_POST["Order"]['phone'] = $_POST['phone'];
 
-	if(isset($_POST['name']))
-		$_POST["Order"]['fio'] = $_POST['name'];
+    if(isset($_POST['name']) || isset($_POST['fio']))
+        $_POST["Order"]['fio'] = isset($_POST['name']) ? $_POST['name'] : $_POST['fio'];
 
 	if(isset($_POST['com']))
 		$_POST["Order"]['com'] = $_POST['com'];
@@ -17,9 +16,9 @@
   // устанавливаем API-HASH рекламодателя
     $api = new Api("14d9f4f2e8c741a3ca18b8685591049e");
 
-    $hash = $_GET["hash"];
-    $flow = $_GET['flow'];
-    $url = $_POST['url'];
+    $hash = $_REQUEST["hash"];
+    $flow = $_REQUEST['flow'];
+    $url = $_REQUEST['url'];
     if($hash)
         $api->set_hash($hash);
     else{
@@ -53,32 +52,31 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="vendor/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="vendor/favicon.ico" type="image/x-icon">
-    <script type="text/javascript" src="vendor/jquery.min.js"></script>
-    <script type="text/javascript" src="vendor/jquery.placeholder.js"></script>
-    <script type="text/javascript" src="vendor/init.js"></script>
-	<script src="vendor/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="icon" href="https://official.org.ua/www/orders/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://official.org.ua/www/orders/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://official.org.ua/www/orders/jquery.min.js"></script>
+    <script type="text/javascript" src="https://official.org.ua/www/orders/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="https://official.org.ua/www/orders/init.js"></script>
+	<script src="https://official.org.ua/www/orders/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://official.org.ua/www/orders/bootstrap.min.css">
 	<title>Поздравляем! Ваш заказ принят!</title>
-    <script src="vendor/jquery.js" type="text/javascript"></script>
-    <script src="vendor/plugins.js" type="text/javascript"></script>
+    <script src="https://official.org.ua/www/orders/jquery.js" type="text/javascript"></script>
+    <script src="https://official.org.ua/www/orders/plugins.js" type="text/javascript"></script>
     
     
     <script>
         <?php echo 'var link = "'.$_GET['url'].'";';?>
     </script>
     
-    <script src="vendor/detect.js" type="text/javascript"></script>
-    <!--<script src="http://official.org.ua/www/orders/send.js" type="text/javascript"></script>-->
+    <script src="https://official.org.ua/www/orders/detect.js" type="text/javascript"></script>
+    <script src="https://official.org.ua/www/orders/send.js" type="text/javascript"></script>
     
    
 
-<link media="all" href="vendor/index.css" type="text/css" rel="stylesheet">
-
+<link media="all" href="https://official.org.ua/www/orders/index.css" type="text/css" rel="stylesheet">
 
 <!-- Facebook Pixel Code -->
-
+<?php if($api->getFacebookId()): ?>
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -88,20 +86,20 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '369583817278445');
-  fbq('track', 'PageView');
+  fbq('init', "<?=$api->getFacebookId()?>");
   fbq('track', 'Lead');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=369583817278445&ev=PageView&noscript=1"
-/></noscript>
-
-<!-- End Facebook Pixel Code -->
-
+<noscript>
+ <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=<?=$api->getFacebookId()?>&ev=Lead&noscript=1"/>
+</noscript>
+<?php endif ?>
+<!-- End Facebook Pixel Code --> 
 
 </head>
-<body style="background-color: rgb(241, 244, 246);" class="man">
-<!--<img style="display: none;" src="http://official.org.ua/www/orders/pixel" alt="cookie" width="1" height="1" border="0">	-->
+<body style="background-color: rgb(241, 244, 246);" class="man"><img style="display: none;" src="https://official.org.ua/www/orders/pixel" alt="cookie" width="1" height="1" border="0">	
+<?php if (isset($ya_metrika)) : ?>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter<?=$ya_metrika;?> = new Ya.Metrika({ id:<?=$ya_metrika;?>, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/<?=$ya_metrika;?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+<?php endif;?>
    <style>
         @media screen and (max-width: 768px) {
             .slides {
@@ -123,6 +121,7 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
             display: inline-block;
             white-space: nowrap;
             vertical-align: middle;
+            /* box-shadow: -10px 0px 5px 0px rgba(231,231,231,1), 10px 0px 5px 0px rgba(231,231,231,1); */
         }
 
         .popular{
@@ -142,7 +141,7 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
             margin-top: 20px;
             overflow: visible;
             line-height: 170px;
-            background: url("http://official.org.ua/www/orders/figure.png") no-repeat;
+            /* background: url("https://official.org.ua/www/orders/figure.png") no-repeat; */ 
             background-size: 100%;
             display: inline-block;
             box-sizing: border-box;
@@ -192,6 +191,8 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
             max-width: 685px;
             min-width: 350px;
             height: 270px;
+            background-color: #fff;
+         
         }
 
         .slides:hover .show_window{
@@ -215,8 +216,10 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
             z-index: 3;
             width: 70px;
             height: 88%;
-            background: linear-gradient(to left, rgba(230, 230, 230, 0), rgba(230, 230, 230, 1));
+            background: linear-gradient(to left, rgba(240, 240, 240, 0), rgba(240, 240, 240, 1));
+            box-shadow: -10px -3px 15px 0px rgba(241,241,241,1), -10px 3px 15px 0px rgba(241,241,241,1);
         }
+        
         .mirror_right{
             position: absolute;
             top: 0;
@@ -224,11 +227,48 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
             z-index: 3;
             width: 70px;
             height: 88%;
-            background: linear-gradient(to left, rgba(230, 230, 230, 1), rgba(230, 230, 230, 0));
+            background: linear-gradient(to left, rgba(240, 240, 240, 1), rgba(240, 240, 240, 0));
+            box-shadow: 10px -3px 15px 0px rgba(241,241,241,1), 10px 3px 15px 0px rgba(241,241,241,1);
         }
+        
+        .second_mirror{
+            /* position: relative;
+            z-index: 4;
+            width: 70px;
+            height: 100%;
+            box-shadow: -10px 0px 5px 0px rgba(231,231,231,1); */
+            
+            position: absolute;
+            top: 0;
+            left: -70px;
+            z-index: 3;
+            width: 70px;
+            height: 100%;
+            background: linear-gradient(to left, rgba(240, 240, 240, 1), rgba(240, 240, 240, 0));
+            box-shadow: 0px -5px 10px -4px rgba(240, 240, 240, 1), 0px 5px 9px -3px rgba(240, 240, 240, 1);
+        }
+
+          .second_mirror_right{
+            /* position: relative;
+            z-index: 4;
+            width: 70px;
+            height: 100%;
+            box-shadow: 10px 0px 5px 0px rgba(231,231,231,1); */
+
+            position: absolute;
+            top: 0;
+            left: 70px;
+            z-index: 3;
+            width: 70px;
+            height: 100%;
+            background: linear-gradient(to left, rgba(240, 240, 240, 0), rgba(240, 240, 240, 1));
+            box-shadow: 0px -5px 10px -4px rgba(240, 240, 240, 1), 0px 5px 9px -3px rgba(240, 240, 240, 1);
+        }
+
         .window{
             text-align: center;
-            background-color: rgb(230, 230, 230);
+            /* background-color: rgb(230, 230, 230);  */
+            background-color: #fff;
         }
 		.input{
 			padding: 6px 12px;
@@ -256,12 +296,12 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
     </style>
 <div class="section block-1">
     <div class="wrap">
-        <img src="vendor/call-girl.png" alt="">
+        <img src="https://official.org.ua/www/orders/call-girl.png" alt="">
 
         <div class="top-title">
             <h2>Спасибо, Ваш заказ принят!</h2>
 
-            <div>Наш оператор свяжется с вами в течение 15 минут</div>
+            <div>Наш оператор свяжется с вами в течение 45 минут</div>
             <p>Время работы нашего колл-центра - с 9:00 до 00:00.</p>
         </div>
     </div>
@@ -309,11 +349,27 @@ if (isset($_POST["Order"]['com'])||isset($_POST["Order"]['email'])){
 		</div>
 </div>
     <input type="hidden" id="page_url" value="<?= $_POST['url'] ?>">
+<div class="window">
+        <p style="margin-top: 20px;color: red;font-size: 18px;">*Если вы ошиблись при заполнении формы, <a style="cursor: pointer;" onclick="goBack()">заполните заявку еще раз</a></p>
+    <div class="popular">Популярные товары</div>
+    <div id="area"></div>
 
+    <div class="slides" id="slides">
+        <div class="mirror"><div class="second_mirror"></div></div>
+        <div class="mirror_right"><div class="second_mirror_right"></div></div>
+
+        <div class="show_window" id="show_window">
+
+        
+
+            <div style="clear: both"></div>
+        </div>
+    </div>
+</div>
 <script>
 $(document).ready(function(){
 	var hash = getQueryParams(document.location.search).hash;
-	$('form').attr('action','http://official.org.ua/www/thankyou.php?hash='+hash);
+	$('form').attr('action','https://official.org.ua/www/thankyou.php?hash='+hash);
 });
 function getQueryParams(qs) {
     qs = qs.split('+').join(' ');
@@ -328,6 +384,10 @@ function getQueryParams(qs) {
 
     return params;
 }
+
+function goBack() {
+  window.history.go(-1);
+}
 </script>
 </body>
 </html>
@@ -341,7 +401,7 @@ function getQueryParams(qs) {
 </head>
 
 <body>
-    <div style="text-align: center;">Указаны неверные данные.Пожалуйста повторите вашу попытку.</div>
+    <div>Вы указали неверные данные.Попробуйте ещё раз...</div>
     <script>
         setTimeout(function(){
            window.location.href = "<?=$_SERVER['HTTP_REFERER']?>"; 
